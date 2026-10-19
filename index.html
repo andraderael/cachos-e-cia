@@ -21,12 +21,6 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('consent', 'revoke');
-    try {
-      if (localStorage.getItem('cachos_cookies') === 'aceito') {
-        fbq('consent', 'grant');
-      }
-    } catch (e) {}
     fbq('init', '2861358657571210');
     fbq('track', 'PageView');
     fbq('track', 'ViewContent', {
@@ -289,38 +283,6 @@
     .barra-fixa__nome small { display: block; font-weight: 500; font-size: 12px; color: var(--suave); }
     .barra-fixa .btn { padding: 13px 20px; font-size: 16px; box-shadow: none; }
 
-    /* Cookies */
-    #cookie-banner {
-      display: none;
-      position: fixed;
-      left: 10px; right: 10px; bottom: 10px;
-      z-index: 600;
-      max-width: 780px;
-      margin: 0 auto;
-      background: var(--folha);
-      color: #fff;
-      border-radius: 14px;
-      padding: 16px 18px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, .35);
-      font-size: 13.5px;
-      line-height: 1.5;
-    }
-    #cookie-banner.show { display: block; }
-    #cookie-banner a { color: #f3c2dc; }
-    .cookie-acoes { display: flex; gap: 8px; margin-top: 12px; }
-    .cookie-acoes button {
-      flex: 1;
-      border: none;
-      border-radius: 10px;
-      padding: 11px;
-      font-weight: 800;
-      font-size: 14px;
-      cursor: pointer;
-      font-family: inherit;
-    }
-    #cookie-aceitar { background: var(--orquidea); color: #fff; }
-    #cookie-recusar { background: #3b4527; color: #fff; }
-
     @media (max-width: 860px) {
       .hero__grade, .ativos, .galeria, .avaliacoes { grid-template-columns: 1fr; }
       .beneficios { grid-template-columns: 1fr; gap: 22px; }
@@ -506,10 +468,7 @@
   <footer>
     <div class="wrap">
       <p>Shopee e Cachos e Cia são marcas de seus respectivos titulares. Este site não tem vínculo oficial com eles.</p>
-      <p>
-        <a href="privacidade.html">Política de privacidade</a> •
-        <button type="button" class="link-btn" id="cookie-gerenciar">Gerenciar cookies</button>
-      </p>
+      <p>Esta página usa o Pixel da Meta para medir o desempenho dos anúncios. <a href="privacidade.html">Saiba mais na política de privacidade</a>.</p>
     </div>
   </footer>
 
@@ -519,48 +478,7 @@
     <a class="btn" data-shopee href="https://s.shopee.com.br/Lo59BWIh8" rel="sponsored noopener">Ver na Shopee</a>
   </div>
 
-  <!-- Aviso de cookies -->
-  <div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
-    Usamos cookies de terceiros (Meta) para medir os anúncios e mostrar anúncios personalizados a quem visitou esta página.
-    Eles só são ativados se você aceitar. Veja a <a href="privacidade.html">Política de privacidade</a>.
-    <div class="cookie-acoes">
-      <button type="button" id="cookie-aceitar">Aceitar</button>
-      <button type="button" id="cookie-recusar">Recusar</button>
-    </div>
-  </div>
-
   <script>
-    // Consentimento de cookies
-    (function () {
-      var KEY = 'cachos_cookies';
-      var banner = document.getElementById('cookie-banner');
-      var memoria = null;
-
-      function ler() {
-        try { return localStorage.getItem(KEY); } catch (e) { return memoria; }
-      }
-      function gravar(v) {
-        memoria = v;
-        try { localStorage.setItem(KEY, v); } catch (e) {}
-      }
-
-      document.getElementById('cookie-aceitar').addEventListener('click', function () {
-        gravar('aceito');
-        try { fbq('consent', 'grant'); } catch (e) {}
-        banner.classList.remove('show');
-      });
-      document.getElementById('cookie-recusar').addEventListener('click', function () {
-        gravar('recusado');
-        try { fbq('consent', 'revoke'); } catch (e) {}
-        banner.classList.remove('show');
-      });
-      document.getElementById('cookie-gerenciar').addEventListener('click', function () {
-        banner.classList.add('show');
-      });
-
-      if (!ler()) { banner.classList.add('show'); }
-    })();
-
     // Barra fixa: aparece depois que a pessoa passa da primeira tela
     (function () {
       var barra = document.getElementById('barra-fixa');
